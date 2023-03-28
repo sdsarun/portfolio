@@ -1,6 +1,5 @@
 const read = require('prompt-sync')({ sigint: true });
 const clearScreen = require("clear-screen");
-
 class Field {
     PLAYER_MOVE_UP = "moveUp";
     PLAYER_MOVE_DOWN = "moveDown";
@@ -37,12 +36,12 @@ class Field {
         }
         this.isGameOver = false;
 
-        this.generateMap();
+        this.randomPlayerPosition();
 
         this.gameStart();
     }
 
-    generateMap() {
+    randomPlayerPosition() {
         let width = this.field.length;
         let height = this.field[0].length;
 
@@ -249,5 +248,4 @@ class Field {
     }
 }
 
-const player = new Player(0, 0);
-new Field(Field.generateField(4, 10, 0.4));
+new Field(Field.generateField(10, 10, 0.3));
