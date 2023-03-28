@@ -18,6 +18,7 @@ class Field {
 
     constructor(field) {
         this.field = field;
+        this.currentUserCommand = "";
         this.player = {
             x: 0,
             y: 0,
@@ -36,15 +37,14 @@ class Field {
         }
         this.isGameOver = false;
 
-        this.randomPlayerPosition();
+        this.randomPlayerAndHatPosition();
 
         this.gameStart();
     }
 
-    randomPlayerPosition() {
+    randomPlayerAndHatPosition() {
         let width = this.field.length;
         let height = this.field[0].length;
-
 
         let playerIndexX = null;
         let playerIndexY = null;
@@ -74,9 +74,27 @@ class Field {
 
     }
 
-    movePlayer(moveOrder) {
-        // move plaer
-        switch (moveOrder) {
+    // movePlayer(moveOrder) {
+    //     // move player
+    //     switch (moveOrder) {
+    //         case this.PLAYER_MOVE_UP:
+    //             this.player.moveUp();
+    //             break;
+    //         case this.PLAYER_MOVE_DOWN:
+    //             this.player.moveDown();
+    //             break;
+    //         case this.PLAYER_MOVE_LEFT:
+    //             this.player.moveLeft();
+    //             break;
+    //         case this.PLAYER_MOVE_RIGHT:
+    //             this.player.moveRight();
+    //             break;
+    //     }
+    // }
+
+    movePlayer() {
+        // move player
+        switch (this.currentUserCommand) {
             case this.PLAYER_MOVE_UP:
                 this.player.moveUp();
                 break;
@@ -90,7 +108,11 @@ class Field {
                 this.player.moveRight();
                 break;
         }
-        this.checkCollision();
+
+        if (this.checkCollision()) {
+            return;
+        }
+        this.updatePlayerPathMove();
     }
 
     checkCollision() {
@@ -102,7 +124,7 @@ class Field {
         if (this.detectOutOfField(playerX, playerY)) {
             console.log("Game Over!, You attempts to move “outside” the field.");
             this.gameOver();
-            return;
+            return true;
         }
 
         // get current object that player move on to.
@@ -112,34 +134,39 @@ class Field {
         if (this.detectHat(whatObject)) {
             console.log("Yeah, I Got it!");
             this.gameOver();
-            return;
+            return true;
         }
 
         // if found hole
         if (this.detectHole(whatObject)) {
             console.log("Game Over!, You falling in a hole.");
             this.gameOver();
-            return;
+            return true;
         }
-
-        // if not found anything just moving on.
-        this.field[playerX][playerY] = this.PLAYER_PATH_CHARACTER;
     }
 
-    inputFormUser() {
+    updatePlayerPathMove() {
+        this.field[this.player.x][this.player.y] = this.PLAYER_PATH_CHARACTER;
+    }
+
+    readInputFormKeyboard() {
         let userInput = read("Which way ? (w, a, s, d) : ").trim().toLowerCase();
         switch (userInput) {
             case this.USER_MOVE_UP:
-                this.movePlayer(this.PLAYER_MOVE_UP);
+                this.currentUserCommand = this.PLAYER_MOVE_UP
+                // this.movePlayer(this.PLAYER_MOVE_UP);
                 break;
             case this.USER_MOVE_DOWN:
-                this.movePlayer(this.PLAYER_MOVE_DOWN)
+                this.currentUserCommand = this.PLAYER_MOVE_DOWN
+                // this.movePlayer(this.PLAYER_MOVE_DOWN)
                 break;
             case this.USER_MOVE_LEFT:
-                this.movePlayer(this.PLAYER_MOVE_LEFT)
+                this.currentUserCommand = this.PLAYER_MOVE_LEFT
+                // this.movePlayer(this.PLAYER_MOVE_LEFT)
                 break;
             case this.USER_MOVE_RIGHT:
-                this.movePlayer(this.PLAYER_MOVE_RIGHT)
+                this.currentUserCommand = this.PLAYER_MOVE_RIGHT
+                // this.movePlayer(this.PLAYER_MOVE_RIGHT)
                 break;
         }
     }
@@ -147,7 +174,8 @@ class Field {
     gameStart() {
         while (!this.isGameOver) {
             this.print();
-            this.inputFormUser();
+            this.readInputFormKeyboard();
+            this.movePlayer();
         }
     }
 
