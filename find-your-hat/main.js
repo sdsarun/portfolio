@@ -1,5 +1,10 @@
 const read = require('prompt-sync')({ sigint: true });
 const clearScreen = require("clear-screen");
+
+// Require the lib, get a working terminal
+const term = require( 'terminal-kit' ).terminal ;
+
+
 class Field {
     PLAYER_MOVE_UP = "moveUp";
     PLAYER_MOVE_DOWN = "moveDown";
@@ -73,24 +78,6 @@ class Field {
         this.field[hatIndexX][hatIndexY] = this.HAT;
 
     }
-
-    // movePlayer(moveOrder) {
-    //     // move player
-    //     switch (moveOrder) {
-    //         case this.PLAYER_MOVE_UP:
-    //             this.player.moveUp();
-    //             break;
-    //         case this.PLAYER_MOVE_DOWN:
-    //             this.player.moveDown();
-    //             break;
-    //         case this.PLAYER_MOVE_LEFT:
-    //             this.player.moveLeft();
-    //             break;
-    //         case this.PLAYER_MOVE_RIGHT:
-    //             this.player.moveRight();
-    //             break;
-    //     }
-    // }
 
     movePlayer() {
         // move player
@@ -170,8 +157,7 @@ class Field {
                 break;
         }
     }
-
-    gameStart() {
+	gameStart() {
         while (!this.isGameOver) {
             this.print();
             this.readInputFormKeyboard();
@@ -212,7 +198,15 @@ class Field {
         return Math.floor(Math.random() * (max - min) + min);
     }
 
-    static generateField(width, height, percentage = 0.4) {
+    static generateField(width, height, percentage = 0.1) {
+		if (percentage > 100 || percentage < 0 || percentage === "") {
+			percentage = 40;
+		}
+
+		percentage *= 0.01;
+		console.log("Game hole percentage : " + percentage);
+
+
         let HAT = '^';
         let HOLE = 'O';
         let FIELD_CHARACTER = '░';
@@ -230,41 +224,19 @@ class Field {
 
         // fill hole
         let availableSlots = Math.floor((width * height - 2) * percentage);
+		console.log("Free slot : ", availableSlots);
 
-        for (let i = 0; i < availableSlots; i++) {
+		while (availableSlots !== 0) {
             let holeIndexX = Field.randomIndex(0, width);
             let holeIndexY = Field.randomIndex(0, height);
 
             let whatObject = field[holeIndexX][holeIndexY];
-            if (whatObject === HAT || whatObject === PLAYER_PATH_CHARACTER) continue;
+            if (whatObject === HOLE) continue;
 
             field[holeIndexX][holeIndexY] = HOLE;
+
+			availableSlots--;
         }
-
-        // let availableSlots = (width * height) - 2;
-
-        // let playerIndexX = null;
-        // let playerIndexY = null;
-
-        // let hatIndexX = null;
-        // let hatIndexY = null;
-        // // replace player and hat
-        // while (true) {
-        //     playerIndexX = this.randomIndex(0, width);
-        //     playerIndexY = this.randomIndex(0, height);
-
-        //     hatIndexX = this.randomIndex(0, width);
-        //     hatIndexY = this.randomIndex(0, height);
-
-        //     let isSamePosition = playerIndexX === hatIndexX && playerIndexY === hatIndexY;
-        //     if (!isSamePosition) {
-        //         break;
-        //     }
-        // }
-
-        // // add to field
-        // field[playerIndexX][playerIndexY] = PLAYER_PATH_CHARACTER;
-        // field[hatIndexX][hatIndexY] = HAT;
 
 
         // const myField = [
@@ -276,4 +248,8 @@ class Field {
     }
 }
 
-new Field(Field.generateField(10, 10, 0.3));
+let row = read("Enter field row : ");
+let column = read("Enter field column : ");
+let holePercentage = read("Hold percengtage (default 10%) : ");
+
+new Field(Field.generateField(row, column, holePercentage));
