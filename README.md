@@ -1,1 +1,3 @@
-# codecademy-projects
+# Portfolio
+
+This repository collects the works that i have done for practice and enjoyment purposes...
