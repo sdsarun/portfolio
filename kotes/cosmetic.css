@@ -1,0 +1,125 @@
+:root {
+    --time-font-size: 0.8rem;
+    --close-font-size: 1rem;
+    --default-font: 'Sarabun', sans-serif;
+    --mono-font: 'Space Mono', monospace;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    /* background-color: black; */
+    font-family: var(--mono-font);
+
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(90, 19, 99, 1) 37%, rgba(0, 212, 255, 1) 100%);
+}
+
+.main-content {
+    margin: 0 auto;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+}
+
+.header-content {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.header-content>.top>h1 {
+    /* padding-top: 30px;
+    padding-bottom: 30px; */
+    font-size: 3rem;
+    color: white;
+}
+
+.main-content>.note-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    justify-content: center;
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.note {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 0px 0px 5px black;
+    background-color: white;
+}
+
+.note>.top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+.note>.bottom {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+.note-content {
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none;
+    outline: none;
+    padding: 5px 20px;
+    font-family: var(--mono-font);
+}
+
+.note:hover {
+    box-shadow: 0px 0px 25px rgb(254, 206, 16);
+    transition: 0.3s;
+}
+
+.note:focus {
+    border: 1px solid black;
+    box-shadow: 0px 0px 25px rgb(254, 206, 16);
+    transition: 0.5s;
+}
+
+.btn-add-note {
+    height: 300px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    font-size: 4rem;
+    background-color: rgba(160, 160, 160, 0.2);
+}
+
+.btn-add-note:hover {
+    background-color: rgba(228, 228, 228, 0.2);
+}
+
+.btn-add-note:active {
+    background-color: rgb(79, 75, 114);
+}
+
+.delete-note {
+    cursor: pointer;
+}
