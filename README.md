@@ -1,3 +1,3 @@
 # Portfolio
 
-This repository collects the works that we have done for training and for our own enjoyment.
+This repository collects the works that i have done for practice and enjoyment purposes...
