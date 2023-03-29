@@ -1,7 +1,7 @@
 # isPrimes
 
 <p align="center">
-  <img src="https://github.com/srndko/isPrimes/blob/master/img/isprimeDemo.png" /> 
+  <img src="https://github.com/sdsarun/portfolio/blob/main/isPrimes/img/isprimeDemo.png" /> 
 </p>
 
 # Info
