@@ -1,255 +1,337 @@
-const read = require('prompt-sync')({ sigint: true });
+const read = require('prompt-sync')({sigint: true});
 const clearScreen = require("clear-screen");
 
-// Require the lib, get a working terminal
-const term = require( 'terminal-kit' ).terminal ;
+class Player {
 
+	constructor(x, y) {
+		this.x = x;
+		this.y = y;
+		this.icon = "*";
+	}
 
-class Field {
-    PLAYER_MOVE_UP = "moveUp";
-    PLAYER_MOVE_DOWN = "moveDown";
-    PLAYER_MOVE_LEFT = "moveLeft";
-    PLAYER_MOVE_RIGHT = "moveRight";
+	getX() {
+		return this.x;
+	}
 
-    USER_MOVE_UP = "w";
-    USER_MOVE_DOWN = "s";
-    USER_MOVE_LEFT = "a";
-    USER_MOVE_RIGHT = "d";
+	getY() {
+		return this.y;
+	}
 
-    HAT = '^';
-    HOLE = 'O';
-    FIELD_CHARACTER = '░';
-    PLAYER_PATH_CHARACTER = '*';
+	setX() {
+		this.x = x;
+	}
 
-    constructor(field) {
-        this.field = field;
-        this.currentUserCommand = "";
-        this.player = {
-            x: 0,
-            y: 0,
-            moveUp() {
-                this.x--;
-            },
-            moveDown() {
-                this.x++;
-            },
-            moveLeft() {
-                this.y--;
-            },
-            moveRight() {
-                this.y++;
-            },
-        }
-        this.isGameOver = false;
+	setY() {
+		this.y = y;
+	}
 
-        this.randomPlayerAndHatPosition();
+	setLocation(x, y) {
+		this.x = x;
+		this.y = y;
+	}
 
-        this.gameStart();
-    }
+	moveUp() {
+		this.x--;	
+	}
 
-    randomPlayerAndHatPosition() {
-        let width = this.field.length;
-        let height = this.field[0].length;
+	moveDown() {
+		this.x++;	
+	}
 
-        let playerIndexX = null;
-        let playerIndexY = null;
+	moveLeft() {
+		this.y--;	
+	}
 
-        let hatIndexX = null;
-        let hatIndexY = null;
-        // replace player and hat
-        while (true) {
-            playerIndexX = Field.randomIndex(0, width);
-            playerIndexY = Field.randomIndex(0, height);
+	moveRight() {
+		this.y++;
+	}
 
-            hatIndexX = Field.randomIndex(0, width);
-            hatIndexY = Field.randomIndex(0, height);
+	setIcon(icon) {
+		this.icon = icon;
+	}
 
-            let isSamePosition = playerIndexX === hatIndexX && playerIndexY === hatIndexY;
-            if (!isSamePosition) {
-                break;
-            }
-        }
-
-        this.player.x = playerIndexX;
-        this.player.y = playerIndexY;
-
-        // file player and hat
-        this.field[playerIndexX][playerIndexY] = this.PLAYER_PATH_CHARACTER;
-        this.field[hatIndexX][hatIndexY] = this.HAT;
-
-    }
-
-    movePlayer() {
-        // move player
-        switch (this.currentUserCommand) {
-            case this.PLAYER_MOVE_UP:
-                this.player.moveUp();
-                break;
-            case this.PLAYER_MOVE_DOWN:
-                this.player.moveDown();
-                break;
-            case this.PLAYER_MOVE_LEFT:
-                this.player.moveLeft();
-                break;
-            case this.PLAYER_MOVE_RIGHT:
-                this.player.moveRight();
-                break;
-        }
-
-        if (this.checkCollision()) {
-            return;
-        }
-        this.updatePlayerPathMove();
-    }
-
-    checkCollision() {
-        // get next move (x, y) for detect collision.
-        let playerX = this.player.x;
-        let playerY = this.player.y;
-
-        // first check if player move to out of fields;
-        if (this.detectOutOfField(playerX, playerY)) {
-            console.log("Game Over!, You attempts to move “outside” the field.");
-            this.gameOver();
-            return true;
-        }
-
-        // get current object that player move on to.
-        let whatObject = this.field[playerX][playerY];
-
-        // if found hat
-        if (this.detectHat(whatObject)) {
-            console.log("Yeah, I Got it!");
-            this.gameOver();
-            return true;
-        }
-
-        // if found hole
-        if (this.detectHole(whatObject)) {
-            console.log("Game Over!, You falling in a hole.");
-            this.gameOver();
-            return true;
-        }
-    }
-
-    updatePlayerPathMove() {
-        this.field[this.player.x][this.player.y] = this.PLAYER_PATH_CHARACTER;
-    }
-
-    readInputFormKeyboard() {
-        let userInput = read("Which way ? (w, a, s, d) : ").trim().toLowerCase();
-        switch (userInput) {
-            case this.USER_MOVE_UP:
-                this.currentUserCommand = this.PLAYER_MOVE_UP
-                // this.movePlayer(this.PLAYER_MOVE_UP);
-                break;
-            case this.USER_MOVE_DOWN:
-                this.currentUserCommand = this.PLAYER_MOVE_DOWN
-                // this.movePlayer(this.PLAYER_MOVE_DOWN)
-                break;
-            case this.USER_MOVE_LEFT:
-                this.currentUserCommand = this.PLAYER_MOVE_LEFT
-                // this.movePlayer(this.PLAYER_MOVE_LEFT)
-                break;
-            case this.USER_MOVE_RIGHT:
-                this.currentUserCommand = this.PLAYER_MOVE_RIGHT
-                // this.movePlayer(this.PLAYER_MOVE_RIGHT)
-                break;
-        }
-    }
-	gameStart() {
-        while (!this.isGameOver) {
-            this.print();
-            this.readInputFormKeyboard();
-            this.movePlayer();
-        }
-    }
-
-    gameOver() {
-        this.isGameOver = true;
-        // console.log("GameOver() called");
-        // this.gameStart();
-    }
-
-    detectOutOfField(x, y) {
-        let height = this.field.length;
-        let width = this.field[0].length
-        let xOut = x < 0 || x >= height;
-        let yOut = y < 0 || y >= width;
-        return xOut || yOut;
-    }
-
-    detectHole(obj) {
-        return obj === this.HOLE;
-    }
-
-    detectHat(obj) {
-        return obj === this.HAT;
-    }
-
-    print() {
-        clearScreen();
-        this.field.forEach((e) => {
-            console.log(e.join(""))
-        });
-    }
-
-    static randomIndex(min, max) {
-        return Math.floor(Math.random() * (max - min) + min);
-    }
-
-    static generateField(width, height, percentage = 0.1) {
-		if (percentage > 100 || percentage < 0 || percentage === "") {
-			percentage = 40;
-		}
-
-		percentage *= 0.01;
-		console.log("Game hole percentage : " + percentage);
-
-
-        let HAT = '^';
-        let HOLE = 'O';
-        let FIELD_CHARACTER = '░';
-        let PLAYER_PATH_CHARACTER = '*';
-
-        let field = [];
-        // first generate background.
-        for (let i = 0; i < width; i++) {
-            let eachRow = [];
-            for (let j = 0; j < height; j++) {
-                eachRow.push(FIELD_CHARACTER);
-            }
-            field.push(eachRow);
-        }
-
-        // fill hole
-        let availableSlots = Math.floor((width * height - 2) * percentage);
-		console.log("Free slot : ", availableSlots);
-
-		while (availableSlots !== 0) {
-            let holeIndexX = Field.randomIndex(0, width);
-            let holeIndexY = Field.randomIndex(0, height);
-
-            let whatObject = field[holeIndexX][holeIndexY];
-            if (whatObject === HOLE) continue;
-
-            field[holeIndexX][holeIndexY] = HOLE;
-
-			availableSlots--;
-        }
-
-
-        // const myField = [
-        //     ['*', '░', '░'],
-        //     ['░', '░', '░'],
-        //     ['░', '^', '░'],
-        // ];
-        return field;
-    }
+	getIcon() {
+		return this.icon;
+	}
 }
 
-let row = read("Enter field row : ");
-let column = read("Enter field column : ");
-let holePercentage = read("Hold percengtage (default 10%) : ");
+class Game {
 
-new Field(Field.generateField(row, column, holePercentage));
+	MOVE_UP = "w";
+	MOVE_DOWN = "s";
+	MOVE_LEFT = "a";
+	MOVE_RIGHT = "d";
+
+	HAT = '^';
+	HOLE = 'O';
+	FIELD = '░';
+
+	constructor(map, player, hardMode = false) {
+		this.player = player;
+		this.map = map;
+		this.userCommand = null;
+		this.isGameOver = false;
+		this.hardMode = hardMode;
+
+		this.gameStart();
+	}
+
+	generateHole() {
+		// this function should not place new hole on player and hat positions.
+		let mapRowSize = this.map.length;
+		let mapColumnSize = this.map[0].length;
+		while (true) {
+			let newHoleX = Game.randomIndex(0, mapRowSize);
+			let newHoleY = Game.randomIndex(0, mapColumnSize);
+
+			let object = this.getObject(newHoleX, newHoleY);
+			let isSamePositionSomething = this.detectHat(object) || this.detectHole(object) || object === this.player.getIcon();
+			if (isSamePositionSomething) continue;
+
+			this.addHole(newHoleX, newHoleY);
+			break;
+		}
+	}
+
+	addHole(x, y) {
+		this.map[x][y] = this.HOLE;
+	}
+
+	randomPlayerAndHatLocation() {
+		while (true) {
+			let [playerX, playerY] = this.randomPlayerLocation();
+			let [hatX, hatY] = this.randomHatLocation();
+
+			// if player and hat position same hole position, we dont care.
+			let isSamePosition = playerX !== hatX && playerY !== hatY;
+			if (!isSamePosition) {
+
+				this.player.setLocation(playerX, playerY);
+
+				this.map[playerX][playerY] = this.player.getIcon();
+				this.map[hatX][hatY] = this.HAT;
+
+				break;
+			}
+		}	
+	}
+
+	randomHatLocation() {
+		let mapRowSize =  this.map.length;
+		let mapColumnSize = this.map[0].length;
+		let hatX = Game.randomIndex(0, mapRowSize);
+		let hatY = Game.randomIndex(0, mapColumnSize);
+		return [hatX, hatY];
+	}
+
+	randomPlayerLocation() {
+		let mapRowSize =  this.map.length;
+		let mapColumnSize = this.map[0].length;
+		let playerX = Game.randomIndex(0, mapRowSize);
+		let playerY = Game.randomIndex(0, mapColumnSize);
+		return [playerX, playerY];
+	}
+
+	readInputFromUser() {
+		let userCommand = read("Which way ? (w = up, s = down, a = left, r = right) : ").trim().toLowerCase();	
+		switch (userCommand) {
+			case this.MOVE_UP:
+				this.userCommand = userCommand;
+				break;
+			case this.MOVE_DOWN:
+				this.userCommand = userCommand;
+				break;
+			case this.MOVE_LEFT:
+				this.userCommand = userCommand;
+				break;
+			case this.MOVE_RIGHT:
+				this.userCommand = userCommand;
+				break;
+		}
+	}
+
+	checkCollision() {
+		let isDetectSomething = false;
+		let gameOverMessage = "";
+		if (this.detectOutOfMap(this.player.getX(), this.player.getY())) {
+			gameOverMessage = "Game Over!, You attempts to move “outside” the field.";
+			isDetectSomething = true;
+		} else {
+			let identifyObject = this.getObject(this.player.getX(), this.player.getY());
+			if (this.detectHole(identifyObject)) {
+				gameOverMessage = "Game Over!, You falling in a hole.";
+				isDetectSomething = true;
+			}
+			if (this.detectHat(identifyObject)) {
+				gameOverMessage = "Yeah, I Got it!";
+				isDetectSomething = true;
+			}
+		}
+
+		if (isDetectSomething) {
+			this.gameOver(gameOverMessage);
+		}
+
+		return isDetectSomething;
+	}
+
+	updatePlayerPath() {
+		this.map[this.player.getX()][this.player.getY()] = this.player.getIcon();
+	}
+
+	getObject(x, y) {
+		return this.map[x][y];
+	}
+
+	detectHole(object) {
+		let whatIsThis = object;
+		return whatIsThis === this.HOLE;
+	}
+
+	detectHat(object) {
+		let whatIsThis = object;
+		return whatIsThis === this.HAT;
+	}
+
+	detectOutOfMap(x, y) {
+		let mapRowSize = this.map.length;
+		let mapColumnSize = this.map[0].length;
+		let isPlayerMoveOutOfMapX = x < 0 || x >= mapRowSize;
+		let isPlayerMoveOutOfMapY = y < 0 || y >= mapColumnSize;
+		return isPlayerMoveOutOfMapX || isPlayerMoveOutOfMapY
+	}
+
+	movePlayer(userCommand) {
+		switch (userCommand) {
+			case this.MOVE_UP:
+				this.player.moveUp();
+				break;
+			case this.MOVE_DOWN:
+				this.player.moveDown();
+				break;
+			case this.MOVE_LEFT:
+				this.player.moveLeft();
+				break;
+			case this.MOVE_RIGHT:
+				this.player.moveRight();
+				break;
+		}
+	}
+
+	displayMap() {
+		this.map.forEach((element) => console.log(element.join("")));
+	}
+
+	gameStart() {
+		this.randomPlayerAndHatLocation();
+		while (!this.isGameOver) {
+			clearScreen();
+			
+			this.displayMap();
+			this.readInputFromUser();
+			this.movePlayer(this.userCommand);
+
+			if (!this.checkCollision()) {
+				this.updatePlayerPath();
+			}
+
+			if (this.hardMode) {
+				this.generateHole();
+			}
+		}
+	}
+
+	gameOver(message = "Game Over!") {
+		this.isGameOver= true;
+		console.log(message);
+	}
+
+	static randomIndex(min, max) {
+		return Math.floor(Math.random() * (max - min) + min);
+	}
+
+	/** 
+	Only generate field and hole.
+	*/
+	static generateMap(row = 10, column = 10, fieldPercentage = 85) {
+		let invalidSize = row < 3 || column < 3;
+		if (invalidSize) {
+			console.log(row, column);
+			throw Error("Both row and column must greather than 3 or equals.");
+		}
+
+		const hole = "O";
+		const field = '░';
+		const map = [];
+
+		// fill hole. 100% of row * column. (whole map).
+		for (let i = 1; i <= row; i++) {
+			let eachRow = [];
+			for (let j = 1; j <= column; j++) {
+				eachRow.push(hole);
+			}
+			map.push(eachRow);
+		}
+
+		/** 
+		generate field by 90% of hole.
+		*/
+		fieldPercentage *= 0.01; // make to percentage
+		let availableSlot = (row * column); 
+		// fill field
+		let totalField = availableSlot * fieldPercentage; 
+		while (totalField > 0) {
+			let fieldX = Game.randomIndex(0, row);
+			let fieldY = Game.randomIndex(0, column);
+			let isHolePosition = map[fieldX][fieldY];
+			if (isHolePosition === hole)  {
+				map[fieldX][fieldY] = field;
+				totalField--;
+			}
+		}
+		return map;
+	}
+}
+
+
+// ================ testing program =========================
+function running() {	
+	console.log("============= Find Your Hat! ==============")
+
+
+	
+	// row map size input.
+	let row = Number(read("Enter a row size : "));
+	if (!row || row === NaN) row = 10;
+
+	
+
+	// column map size input.
+	let column = Number(read("Enter a column size : "));
+	if (!column || column === NaN) column = 10;
+	// console.log(row, column);
+
+
+	
+	// hard mode input.
+	console.log("Hard mode? (default: no) (every move will generate single hole) (y = yes, n = no)");
+	let hardMode = read("> ").trim().toLowerCase() ?? "n";
+	let mappingMode = { "y" : true, "n" : false}
+	if (!hardMode || undefined) {
+		hardMode = "n";
+	}
+	
+	hardMode = mappingMode[hardMode];
+	console.log(hardMode);
+
+	// create new player
+	const player = new Player(0, 0);
+
+	// create game and generate map and put player into it, and hardmode toggle.
+	new Game(Game.generateMap(row, column), player, hardMode);
+}
+
+running();
+
+
+
