@@ -2,11 +2,12 @@ const read = require('prompt-sync')({sigint: true});
 const clearScreen = require("clear-screen");
 
 class Player {
+	static DEFAULT_ICON = "😈";
 
-	constructor(x, y) {
+	constructor(x = 0, y = 0, icon = Player.DEFAULT_ICON) {
 		this.x = x;
 		this.y = y;
-		this.icon = "*";
+		this.icon = icon;
 	}
 
 	getX() {
@@ -62,9 +63,9 @@ class Game {
 	MOVE_LEFT = "a";
 	MOVE_RIGHT = "d";
 
-	HAT = '^';
-	HOLE = 'O';
-	FIELD = '░';
+	static HAT = '💀';
+	static HOLE = '🍎';
+	static FIELD = '⬜';
 
 	constructor(map, player, hardMode = false) {
 		this.player = player;
@@ -80,6 +81,7 @@ class Game {
 		// this function should not place new hole on player and hat positions.
 		let mapRowSize = this.map.length;
 		let mapColumnSize = this.map[0].length;
+		
 		while (true) {
 			let newHoleX = Game.randomIndex(0, mapRowSize);
 			let newHoleY = Game.randomIndex(0, mapColumnSize);
@@ -94,7 +96,7 @@ class Game {
 	}
 
 	addHole(x, y) {
-		this.map[x][y] = this.HOLE;
+		this.map[x][y] = Game.HOLE;
 	}
 
 	randomPlayerAndHatLocation() {
@@ -109,7 +111,7 @@ class Game {
 				this.player.setLocation(playerX, playerY);
 
 				this.map[playerX][playerY] = this.player.getIcon();
-				this.map[hatX][hatY] = this.HAT;
+				this.map[hatX][hatY] = Game.HAT;
 
 				break;
 			}
@@ -151,17 +153,24 @@ class Game {
 	}
 
 	checkCollision() {
+		
 		let isDetectSomething = false;
 		let gameOverMessage = "";
+		
 		if (this.detectOutOfMap(this.player.getX(), this.player.getY())) {
+			
 			gameOverMessage = "Game Over!, You attempts to move “outside” the field.";
 			isDetectSomething = true;
+			
 		} else {
+			
 			let identifyObject = this.getObject(this.player.getX(), this.player.getY());
+			
 			if (this.detectHole(identifyObject)) {
 				gameOverMessage = "Game Over!, You falling in a hole.";
 				isDetectSomething = true;
 			}
+			
 			if (this.detectHat(identifyObject)) {
 				gameOverMessage = "Yeah, I Got it!";
 				isDetectSomething = true;
@@ -184,13 +193,11 @@ class Game {
 	}
 
 	detectHole(object) {
-		let whatIsThis = object;
-		return whatIsThis === this.HOLE;
+		return object === Game.HOLE;
 	}
 
 	detectHat(object) {
-		let whatIsThis = object;
-		return whatIsThis === this.HAT;
+		return object === Game.HAT;
 	}
 
 	detectOutOfMap(x, y) {
@@ -255,37 +262,34 @@ class Game {
 	*/
 	static generateMap(row = 10, column = 10, fieldPercentage = 85) {
 		let invalidSize = row < 3 || column < 3;
+		
 		if (invalidSize) {
 			console.log(row, column);
 			throw Error("Both row and column must greather than 3 or equals.");
 		}
 
-		const hole = "O";
-		const field = '░';
 		const map = [];
 
 		// fill hole. 100% of row * column. (whole map).
 		for (let i = 1; i <= row; i++) {
 			let eachRow = [];
 			for (let j = 1; j <= column; j++) {
-				eachRow.push(hole);
+				eachRow.push(Game.HOLE);
 			}
 			map.push(eachRow);
 		}
 
-		/** 
-		generate field by 90% of hole.
-		*/
-		fieldPercentage *= 0.01; // make to percentage
+		// generate field 85% of hole.
+		
 		let availableSlot = (row * column); 
 		// fill field
-		let totalField = availableSlot * fieldPercentage; 
+		let totalField = availableSlot * fieldPercentage * 0.01; 
 		while (totalField > 0) {
 			let fieldX = Game.randomIndex(0, row);
 			let fieldY = Game.randomIndex(0, column);
 			let isHolePosition = map[fieldX][fieldY];
-			if (isHolePosition === hole)  {
-				map[fieldX][fieldY] = field;
+			if (isHolePosition === Game.HOLE)  {
+				map[fieldX][fieldY] = Game.FIELD;
 				totalField--;
 			}
 		}
@@ -302,17 +306,15 @@ function running() {
 	
 	// row map size input.
 	let row = Number(read("Enter a row size : "));
-	if (!row || row === NaN) row = 10;
+	if (!row || isNaN(row)) row = 10;
 
 	
-
 	// column map size input.
 	let column = Number(read("Enter a column size : "));
-	if (!column || column === NaN) column = 10;
+	if (!column || isNaN(column)) column = 10;
 	// console.log(row, column);
 
 
-	
 	// hard mode input.
 	console.log("Hard mode? (default: no) (every move will generate single hole) (y = yes, n = no)");
 	let hardMode = read("> ").trim().toLowerCase() ?? "n";
@@ -324,14 +326,12 @@ function running() {
 	hardMode = mappingMode[hardMode];
 	console.log(hardMode);
 
-	// create new player
-	const player = new Player(0, 0);
+	// create a new player
+	const player = new Player();
+	player.setIcon("😎");
 
 	// create game and generate map and put player into it, and hardmode toggle.
 	new Game(Game.generateMap(row, column), player, hardMode);
 }
 
 running();
-
-
-
