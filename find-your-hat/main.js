@@ -73,8 +73,6 @@ class Game {
 		this.userCommand = null;
 		this.isGameOver = false;
 		this.hardMode = hardMode;
-
-		this.gameStart();
 	}
 
 	generateHole() {
@@ -331,7 +329,7 @@ function running() {
 	player.setIcon("😎");
 
 	// create game and generate map and put player into it, and hardmode toggle.
-	new Game(Game.generateMap(row, column), player, hardMode);
+	new Game(Game.generateMap(row, column), player, hardMode).gameStart();
 }
 
 running();
