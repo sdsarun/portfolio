@@ -1,6 +1,13 @@
-import type { Metadata } from "next";
 import "./globals.css";
+
+// components
+import Providers from "@/core/components/providers/providers";
+
+// configs
 import { notoSans, notoSansMono } from "@/core/configs/font";
+
+// types
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -31,11 +38,14 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${notoSans.variable} ${notoSansMono.variable}`}
+      suppressHydrationWarning
     >
       <body
         className={`antialiased`}
       >
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
