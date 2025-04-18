@@ -5,12 +5,12 @@ import { cva, type VariantProps } from "class-variance-authority"
 const headingVariants = cva("", {
   variants: {
     variant: {
-      h1: "font-bold text-base",
-      h2: "font-bold text-sm",
-      h3: "font-bold text-xs",
+      h1: "font-semibold text-base dark:text-white",
+      h2: "font-semibold text-sm dark:text-white",
       body1: "font-semibold text-xs",
       body2: "font-semibold text-xs dark:text-white",
-      p1: "text-xs"
+      p1: "text-sm",
+      p2: "text-xs"
     },
   },
   defaultVariants: {
