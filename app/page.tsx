@@ -28,7 +28,7 @@ export default function Home() {
         <Typography
           as="h2"
           variant="h2"
-          className="mt-3"
+          className="mt-10"
         >Who&apos;s Here!</Typography>
       </FadeIn>
       <FadeIn>
