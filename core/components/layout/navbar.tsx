@@ -20,7 +20,12 @@ export function Navbar() {
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-  const pathnameFormatted = activePathname === "/" ? "home" : activePathname.replace("/", "");
+  let pathnameFormatted = "";
+  if (!Object.values(Routes).includes(activePathname as Routes)) {
+    pathnameFormatted = "not found"
+  } else {
+    pathnameFormatted = activePathname === "/" ? "home" : activePathname.replace("/", "");
+  }
 
   return (
     <nav className='flex items-center justify-between'>
