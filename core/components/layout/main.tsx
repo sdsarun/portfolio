@@ -1,8 +1,31 @@
 import { cn } from '@/core/lib/utils';
-import React from 'react'
+import { cva, type VariantProps } from 'class-variance-authority';
+import React from 'react';
 
-export type MainProps = React.ComponentPropsWithRef<"main">;
+const mainVariants = cva("mx-auto", {
+  variants: {
+    width: {
+      sm: "sm:w-[700px]",
+      full: "w-full",
+    },
+    padding: {
+      none: "",
+      default: "px-6",
+    },
+  },
+  defaultVariants: {
+    width: "sm",
+    padding: "default",
+  },
+});
 
-export function Main({ className, ...props }: MainProps) {
-  return <main className={cn("mx-auto sm:w-[700px]", className)} {...props} />
+export type MainProps = React.ComponentPropsWithRef<"main"> & VariantProps<typeof mainVariants>;
+
+export function Main({ className, width, padding, ...props }: MainProps) {
+  return (
+    <main
+      className={cn(mainVariants({ width, padding }), className)}
+      {...props}
+    />
+  );
 }

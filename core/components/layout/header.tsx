@@ -1,8 +1,31 @@
 import { cn } from '@/core/lib/utils';
-import React from 'react'
+import { cva, type VariantProps } from 'class-variance-authority';
+import React from 'react';
 
-export type HeaderProps = React.ComponentPropsWithRef<"header">;
+const headerVariants = cva("mx-auto", {
+  variants: {
+    width: {
+      sm: "sm:w-[700px]",
+      full: "w-full",
+    },
+    padding: {
+      none: "",
+      default: "px-6",
+    },
+  },
+  defaultVariants: {
+    width: "sm",
+    padding: "default",
+  },
+});
 
-export function Header({ className, ...props }: HeaderProps) {
-  return <header className={cn("mx-auto sm:w-[700px]", className)} {...props} />
+export type HeaderProps = React.ComponentPropsWithRef<"header"> & VariantProps<typeof headerVariants>;
+
+export function Header({ className, width, padding, ...props }: HeaderProps) {
+  return (
+    <header
+      className={cn(headerVariants({ width, padding }), className)}
+      {...props}
+    />
+  );
 }
