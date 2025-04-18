@@ -7,7 +7,7 @@ import Providers from "@/core/components/providers/providers";
 import { notoSans, notoSansMono } from "@/core/configs/font";
 
 // types
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -28,6 +28,10 @@ export const metadata: Metadata = {
   generator: 'Next.js',
   applicationName: 'Sarun Portfolio',
 };
+
+export const viewport: Viewport = {
+  maximumScale: 1
+}
 
 export default function RootLayout({
   children,
