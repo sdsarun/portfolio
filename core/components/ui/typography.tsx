@@ -1,17 +1,16 @@
+import React from "react"
 import { cn } from "@/core/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
 
-type ParagraphProps = React.ComponentPropsWithRef<"p">
-
-function Paragraph({ className, ...props }: ParagraphProps) {
-  return <p className={cn("text-sm", className)} {...props} />
-}
-
-const headingVariants = cva("font-bold tracking-tight", {
+const headingVariants = cva("", {
   variants: {
     variant: {
-      h1: "text-base",
-      h2: "text-sm",
+      h1: "font-bold text-base",
+      h2: "font-bold text-sm",
+      h3: "font-bold text-xs",
+      body1: "font-semibold text-xs",
+      body2: "font-semibold text-xs dark:text-white",
+      p1: "text-xs"
     },
   },
   defaultVariants: {
@@ -19,18 +18,23 @@ const headingVariants = cva("font-bold tracking-tight", {
   },
 })
 
-type HeadingProps = React.ComponentPropsWithRef<"h1"> & VariantProps<typeof headingVariants>
+type TypographyProps = {
+  as?: keyof React.JSX.IntrinsicElements
+  variant?: VariantProps<typeof headingVariants>["variant"]
+  className?: string
+  children: React.ReactNode
+} & React.HTMLAttributes<HTMLElement>
 
-function Heading({ className, variant = "h1", ...props }: HeadingProps) {
-  const Comp = variant as React.ElementType
+function Typography({ as = "span", variant, className, children, ...props }: TypographyProps) {
+  const Comp = as as React.ElementType
   return (
-    <Comp className={cn(headingVariants({ variant }), className)} {...props} />
+    <Comp className={cn(headingVariants({ variant }), className)} {...props}>
+      {children}
+    </Comp>
   )
 }
 
 export {
-  type ParagraphProps,
-  Paragraph,
-  type HeadingProps,
-  Heading
+  type TypographyProps,
+  Typography
 }
