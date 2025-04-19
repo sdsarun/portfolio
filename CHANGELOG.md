@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/sdsarun/portfolio/compare/v1.1.2...v1.1.3) (2025-04-19)
+
+
+### Bug Fixes
+
+* **core-ui:** set default delay fade in to 100ms ([d4f960a](https://github.com/sdsarun/portfolio/commit/d4f960aca0042df147c99b4396c3491bf5e71215))
+* **work:** mismatch portfolio url ([ec05544](https://github.com/sdsarun/portfolio/commit/ec0554433e240bced50af628966672e33372940a))
+
 ### [1.1.2](https://github.com/sdsarun/portfolio/compare/v1.1.1...v1.1.2) (2025-04-19)
 
 
