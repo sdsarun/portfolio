@@ -1,5 +1,6 @@
 // core
 import React from 'react'
+import { Metadata } from 'next'
 
 // components
 import Link from 'next/link'
@@ -14,6 +15,10 @@ type Contact = {
   type: 'email' | 'link';
   href: string;
 };
+
+export const metadata: Metadata = {
+  title: "contact"
+}
 
 const contacts: Contact[] = [
   {
