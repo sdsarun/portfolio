@@ -6,7 +6,7 @@ import { Metadata } from 'next'
 import { Box } from '@/core/components/layout/box'
 import { Main } from '@/core/components/layout/main'
 import { Separator } from '@/core/components/ui/separator'
-import { WorkOverview, WorkOverviewProps } from '@/core/components/ui/work-overview'
+import { WorkOverview, type WorkOverviewProps } from '@/core/components/ui/work-overview'
 import { FadeIn } from '@/core/components/wrapper/fade-in'
 import { Typography } from '@/core/components/ui/typography'
 
@@ -40,6 +40,12 @@ const worksData: WorkOverviewProps[] = [
   {
     title: "No More Random AD",
     description: "Generate random data without the annoyance of ads.",
+    imageProps: {
+      src: "https://raw.githubusercontent.com/sdsarun/assets/refs/heads/main/screenshots/portfolio/no-more-random-ad.png",
+      width: 900,
+      height: 700,
+      alt: "No More Random AD Image"
+    },
     badges: ["NextJS", "Shadcn-UI"],
     metadata: [
       {
@@ -58,6 +64,12 @@ const worksData: WorkOverviewProps[] = [
   {
     title: "Coastal Sea Depth Platform",
     description: "Coastal depth survey data, enabling the display of various map layers, including base maps, satellite and digital elevation models (DEM).",
+    imageProps: {
+      src: "https://raw.githubusercontent.com/sdsarun/assets/refs/heads/main/screenshots/portfolio/coastal-sea-depth.png",
+      width: 900,
+      height: 700,
+      alt: "Coastal Sea Depth Image"
+    },
     badges: ["Vite", "NestJS", "RabbitMQ", "MinIO", "Postgres"],
     metadata: [
       {
@@ -72,6 +84,12 @@ const worksData: WorkOverviewProps[] = [
   {
     title: "xx-portfolio",
     description: "A personal portfolio showcasing projects, skills, and experience.",
+    imageProps: {
+      src: "https://raw.githubusercontent.com/sdsarun/assets/refs/heads/main/screenshots/portfolio/xx-portfolio.png",
+      width: 900,
+      height: 700,
+      alt: "XX Portfolio Image"
+    },
     badges: ["Vite", "TailwindCSS"],
     metadata: [
       {
@@ -100,10 +118,15 @@ export default function WorkPage() {
           </Typography>
         </Box>
       </FadeIn>
-      <Box as="section" className='flex flex-col gap-10' padding="none">
-        {worksData.map((workProps) => (
+      <Box as="section" className='flex flex-col gap-10' padding="none" width="full">
+        {worksData.map((workProps, idx) => (
           <FadeIn key={workProps.title}>
             <WorkOverview {...workProps} />
+            {idx !== worksData.length - 1 && (
+              <Box width="responsive" className='mt-10 sm:hidden'>
+                <Separator className='' />
+              </Box>
+            )}
           </FadeIn>
         ))}
       </Box>
