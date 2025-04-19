@@ -38,8 +38,8 @@ const contacts: Contact[] = [
 
 export default function ContactPage() {
   return (
-    <Main className='my-10'>
-      <section className='flex flex-col gap-2'>
+    <Main>
+      <section className='py-[20rem] flex flex-col gap-2'>
         {contacts.map((contact, idx) => (
           <FadeIn key={contact.label + idx}>
             <div className='flex flex-col gap-2'>
@@ -60,9 +60,8 @@ export default function ContactPage() {
           </FadeIn>
         ))}
       </section>
-
       <FadeIn>
-        <Separator className='mt-10' />
+        <Separator />
       </FadeIn>
     </Main>
   )
