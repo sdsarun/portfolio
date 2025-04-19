@@ -1,6 +1,11 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
+  "author": {
+    "name": "Sarun Daunghirun",
+    "email": "sdsarun@outlook.com",
+    "url": "https://github.com/sdsarun"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
