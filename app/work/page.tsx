@@ -8,6 +8,7 @@ import { Main } from '@/core/components/layout/main'
 import { Separator } from '@/core/components/ui/separator'
 import { WorkOverview, WorkOverviewProps } from '@/core/components/ui/work-overview'
 import { FadeIn } from '@/core/components/wrapper/fade-in'
+import { Typography } from '@/core/components/ui/typography'
 
 export const metadata: Metadata = {
   title: "work"
@@ -91,7 +92,15 @@ const worksData: WorkOverviewProps[] = [
 export default function WorkPage() {
   return (
     <Main width="full" className='mt-10'>
-      <Box className='flex flex-col gap-10'>
+      <FadeIn>
+        <Box as='section' className='py-[10rem] flex flex-col gap-1'>
+          <Typography as='h1'>Showcasing My Work and Passion Projects</Typography>
+          <Typography as="p" variant='p2' className='text-muted-foreground'>
+            Not every project here is groundbreaking. Some are just me practicing new tricks, testing my limits, or just having fun while learning. But hey, every line of code counts!
+          </Typography>
+        </Box>
+      </FadeIn>
+      <Box as="section" className='flex flex-col gap-10'>
         {worksData.map((workProps) => (
           <FadeIn key={workProps.title}>
             <WorkOverview {...workProps} />
