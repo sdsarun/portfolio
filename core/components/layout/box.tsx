@@ -7,6 +7,7 @@ const boxVariants = cva("mx-auto", {
     width: {
       sm: "sm:w-[700px]",
       full: "w-full",
+      responsive: "w-full sm:w-[700px]"
     },
     padding: {
       none: "",
