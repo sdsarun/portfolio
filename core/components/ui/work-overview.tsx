@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { cn } from '@/core/lib/utils';
 import { SquareArrowOutUpRight } from 'lucide-react';
 import { Separator } from '@/core/components/ui/separator';
+import { Badge } from '@/core/components/ui/badge';
 
 export type WorkOverviewMetaItem = {
   label: string;
@@ -24,6 +25,7 @@ export type WorkOverviewProps = {
   title?: string;
   description?: string;
   metadata?: WorkOverviewMetaItem[]
+  badges?: string[];
 };
 
 export function WorkOverview({
@@ -33,6 +35,7 @@ export function WorkOverview({
   title,
   description,
   metadata,
+  badges,
 }: WorkOverviewProps) {
   return (
     <section className={cn("flex flex-col gap-16", rootClassName)}>
@@ -51,11 +54,11 @@ export function WorkOverview({
       <Box className='flex flex-col gap-4 sm:flex-row'>
         <Box width="full" padding="none" className='flex-1/3 sm:block'>
           {metadata?.map((item, idx) => (
-            <Typography as="p" variant="p1" key={idx}>
+            <Typography as="p" variant="p1" key={item.label +idx}>
               {item.href ? (
                 <Link
                   href={item.href}
-                  className="hover:underline flex items-center gap-1"
+                  className="hover:underline inline-flex items-center gap-1"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -72,6 +75,15 @@ export function WorkOverview({
         <Box width="full" padding="none" className='flex-2/3 flex flex-col gap-4'>
           <Typography as="h1" variant="h2" className='flex items-center gap-2'>{title}</Typography>
           <Typography as="p" variant="p1">{description}</Typography>
+          {badges && (
+            <div className='flex items-center gap-1 flex-wrap'>
+              {badges.map((badge, idx) => (
+                <Badge variant="secondary" key={badge + idx} className='text-muted-foreground'>
+                  {badge}
+                </Badge>
+              ))}
+            </div>
+          )}
         </Box>
       </Box>
     </section>
