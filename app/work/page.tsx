@@ -91,7 +91,7 @@ const worksData: WorkOverviewProps[] = [
 
 export default function WorkPage() {
   return (
-    <Main width="full" className='mt-10'>
+    <Main width="full" className='mt-10' padding="none">
       <FadeIn>
         <Box as='section' className='py-[10rem] flex flex-col gap-1'>
           <Typography as='h1'>Showcasing My Work and Passion Projects</Typography>
@@ -100,7 +100,7 @@ export default function WorkPage() {
           </Typography>
         </Box>
       </FadeIn>
-      <Box as="section" className='flex flex-col gap-10'>
+      <Box as="section" className='flex flex-col gap-10' padding="none">
         {worksData.map((workProps) => (
           <FadeIn key={workProps.title}>
             <WorkOverview {...workProps} />

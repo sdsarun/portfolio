@@ -51,10 +51,10 @@ export function WorkOverview({
           />
         </figure>
       )}
-      <Box className='flex flex-col gap-4 sm:flex-row'>
-        <Box width="full" padding="none" className='flex-1/3 sm:block'>
+      <Box width="full" className='flex flex-col gap-4 sm:flex-row'>
+        <Box width="full" padding="none" className='flex-1/3 order-last sm:order-first sm:block'>
           {metadata?.map((item, idx) => (
-            <Typography as="p" variant="p1" key={item.label +idx}>
+            <Typography as="p" variant="p1" key={item.label + idx}>
               {item.href ? (
                 <Link
                   href={item.href}
