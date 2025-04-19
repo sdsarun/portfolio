@@ -15,10 +15,9 @@ export default function Home() {
   return (
     <Main width="sm">
       <FadeIn>
-        <div className="py-[20rem]">
-          <Typography as="h1">
-            Sarun Daunghirun
-          </Typography>
+        <div className="py-[20rem] flex flex-col gap-1">
+          <Typography as="h1">Sarun Daunghirun</Typography>
+          <Typography as="p" variant="p2" className="italic underline">Software Developer</Typography>
         </div>
       </FadeIn>
       <FadeIn>
