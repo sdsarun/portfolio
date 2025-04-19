@@ -1,5 +1,6 @@
 // core
 import React from 'react'
+import { Metadata } from 'next'
 
 // components
 import Link from 'next/link'
@@ -9,6 +10,10 @@ import { Typography } from '@/core/components/ui/typography'
 // constants
 import { Routes } from '@/core/constants/routes'
 import { Separator } from '@/core/components/ui/separator'
+
+export const metadata: Metadata = {
+  title: "not found"
+}
 
 export default function NotFoundPage() {
   return (
