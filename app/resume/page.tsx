@@ -1,5 +1,6 @@
 // core
 import React, { Fragment } from 'react'
+import { Metadata } from 'next'
 
 // components
 import { Main } from '@/core/components/layout/main'
@@ -7,6 +8,10 @@ import { FadeIn } from '@/core/components/wrapper/fade-in'
 import { Typography } from '@/core/components/ui/typography'
 import { Separator } from '@/core/components/ui/separator'
 import { Badge } from '@/core/components/ui/badge'
+
+export const metadata: Metadata = {
+  title: "resume"
+}
 
 const resumeData = {
   name: 'Sarun Daunghirun',
