@@ -39,10 +39,16 @@ const contacts: Contact[] = [
 export default function ContactPage() {
   return (
     <Main>
-      <section className='py-[20rem] flex flex-col gap-2'>
-        {contacts.map((contact, idx) => (
-          <FadeIn key={contact.label + idx}>
-            <div className='flex flex-col gap-2'>
+      <FadeIn>
+        <section className='py-[10rem] flex flex-col gap-1'>
+          <Typography as='h1'>Got something to say? Me too.</Typography>
+          <Typography as="p" variant='p2' className='text-muted-foreground'>
+            Whether it&apos;s work, play, or “this code won&apos;t run,” I&apos;m just one dramatic email away. Hit me up!
+          </Typography>
+        </section>
+        <section className='pb-[20rem] flex flex-col gap-2'>
+          {contacts.map((contact, idx) => (
+            <div key={contact.label + idx} className='flex flex-col gap-2'>
               <div className='flex items-center justify-between'>
                 <Typography variant="p1">{contact.label}</Typography>
                 <Typography variant="p3" className='hover:underline'>
@@ -57,10 +63,8 @@ export default function ContactPage() {
               </div>
               {idx !== contacts.length - 1 && <Separator />}
             </div>
-          </FadeIn>
-        ))}
-      </section>
-      <FadeIn>
+          ))}
+        </section>
         <Separator />
       </FadeIn>
     </Main>
