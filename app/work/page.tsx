@@ -101,7 +101,7 @@ const worksData: WorkOverviewProps[] = [
       },
       {
         label: "GitHub",
-        href: "https://github.com/sdsarun/sd-portfolio"
+        href: "https://github.com/sdsarun/xx-portfolio"
       }
     ]
   }
@@ -109,7 +109,7 @@ const worksData: WorkOverviewProps[] = [
 
 export default function WorkPage() {
   return (
-    <Main width="full" className='mt-10' padding="none">
+    <Main width="full" padding="none">
       <FadeIn>
         <Box as='section' className='py-[10rem] flex flex-col gap-1'>
           <Typography as='h1'>Showcasing My Work and Passion Projects</Typography>
@@ -118,19 +118,20 @@ export default function WorkPage() {
           </Typography>
         </Box>
       </FadeIn>
-      <Box as="section" className='flex flex-col gap-10' padding="none" width="full">
-        {worksData.map((workProps, idx) => (
-          <FadeIn key={workProps.title}>
-            <WorkOverview {...workProps} />
-            {idx !== worksData.length - 1 && (
-              <Box width="responsive" className='mt-10 sm:hidden'>
-                <Separator className='' />
-              </Box>
-            )}
-          </FadeIn>
-        ))}
-      </Box>
-
+      <FadeIn>
+        <Box as="section" className='flex flex-col gap-10' padding="none" width="full">
+          {worksData.map((workProps, idx) => (
+            <FadeIn key={workProps.title}>
+              <WorkOverview {...workProps} />
+              {idx !== worksData.length - 1 && (
+                <Box width="responsive" className='mt-10 sm:hidden'>
+                  <Separator className='' />
+                </Box>
+              )}
+            </FadeIn>
+          ))}
+        </Box>
+      </FadeIn>
       <FadeIn>
         <Box className='mt-10'>
           <Separator />
