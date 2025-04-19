@@ -10,10 +10,10 @@ const headingVariants = cva("", {
       body1: "font-semibold text-xs",
       body2: "font-semibold text-xs dark:text-white",
       body3: "font-semibold text-sm dark:text-white",
-      p1: "text-sm",
-      p2: "text-xs",
-      p3: "text-sm dark:text-white",
-      p4: "text-xs dark:text-white"
+      p1: "text-sm text-muted-foreground",
+      p2: "text-xs text-muted-foreground",
+      p3: "text-sm text-muted-foreground dark:text-white",
+      p4: "text-xs text-muted-foreground dark:text-white"
     },
   },
   defaultVariants: {
