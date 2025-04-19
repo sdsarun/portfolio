@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/sdsarun/portfolio/compare/v1.1.1...v1.1.2) (2025-04-19)
+
+
+### Features
+
+* **core-ui:** add box responsive variant ([b7b3075](https://github.com/sdsarun/portfolio/commit/b7b3075b90f63823dc070638ba6e7b956695cfd1))
+* **work:** add show images and responsive ui ([295b874](https://github.com/sdsarun/portfolio/commit/295b87495eb17801c598bf216b16d5fc2e81487d))
+
+
+### Bug Fixes
+
+* **core-ui:** work overview responsive incorrect ([fc58d50](https://github.com/sdsarun/portfolio/commit/fc58d505b881feeeb58c785455572ece1a63c04d))
+* **core-ui:** work overview responsive incorrect ([23d1165](https://github.com/sdsarun/portfolio/commit/23d116576a97ee97890f5e4bbbfc32657bd9f23f))
+* **infra:** add allow remote host gitihub ([38be5c4](https://github.com/sdsarun/portfolio/commit/38be5c488e25bb249d03698b5ec6a31489fab8ca))
+
 ### [1.1.1](https://github.com/sdsarun/portfolio/compare/v1.1.0...v1.1.1) (2025-04-19)
 
 ## 1.1.0 (2025-04-19)
