@@ -71,7 +71,7 @@ export function WorkOverview({
         <Separator className='sm:hidden' />
         <Box width="full" padding="none" className='flex-2/3 flex flex-col gap-4'>
           <Typography as="h1" variant="h2" className='flex items-center gap-2'>{title}</Typography>
-          <Typography as="h2" variant="p1">{description}</Typography>
+          <Typography as="p" variant="p1">{description}</Typography>
         </Box>
       </Box>
     </section>
