@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://github.com/sdsarun/portfolio/compare/v1.1.3...v1.1.4) (2025-04-20)
+
+
+### Bug Fixes
+
+* **work:** add in progress flag and change link project of chatio project ([56c189e](https://github.com/sdsarun/portfolio/commit/56c189efbfb226f4e79782bc79693269d0f79657))
+
 ### [1.1.3](https://github.com/sdsarun/portfolio/compare/v1.1.2...v1.1.3) (2025-04-19)
 
 
