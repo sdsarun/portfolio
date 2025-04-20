@@ -24,8 +24,11 @@ const worksData: WorkOverviewProps[] = [
         label: "2025"
       },
       {
+        label: "In Progress"
+      },
+      {
         label: "Live",
-        href: "https://chatio-front.onrender.com/"
+        href: "https://chatio-front.vercel.app"
       },
       {
         label: "Github Front",
