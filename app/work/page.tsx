@@ -79,10 +79,30 @@ const worksData: WorkOverviewProps[] = [
         label: "2024"
       },
       {
+        label: "Contribute",
+      },
+      {
         label: "Live",
         href: "https://coastalseadepth.com"
       }
     ],
+  },
+  {
+    title: "Smart Tax",
+    description: "Intelligent tax collection and valuation system facilitate citizens as a one-stop-service for submitting an online petition form, payment check and status tracking.",
+    badges: ["NextJS", "NestJS", "Postgres"],
+    metadata: [
+      {
+        label: "2023-Present"
+      },
+      {
+        label: "Contribute",
+      },
+      {
+        label: "Landing",
+        href: "https://bedrockanalytics.ai/products/smart-municipal-tax-solution"
+      }
+    ]
   },
   {
     title: "xx-portfolio",

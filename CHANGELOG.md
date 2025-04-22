@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.5](https://github.com/sdsarun/portfolio/compare/v1.1.4...v1.1.5) (2025-04-22)
+
+
+### Features
+
+* **work:** add smart tax work ([cb9fa01](https://github.com/sdsarun/portfolio/commit/cb9fa01a1c07b15b7edc92e19270ac76385f7560))
+
 ### [1.1.4](https://github.com/sdsarun/portfolio/compare/v1.1.3...v1.1.4) (2025-04-20)
 
 
