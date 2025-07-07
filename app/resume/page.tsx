@@ -1,5 +1,5 @@
 // core
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Metadata } from 'next'
 
 // components
@@ -19,9 +19,17 @@ const resumeData = {
   subtitle: 'NextJS, NestJS',
   workExperience: [
     {
-      position: 'Full Stack Developer',
+      position: "Application Developer",
+      company: "TCC Technology",
+      duration: "(Jul 2025 - Present)",
+      responsibilities: [
+        "Mentored juniors through pair programming and code reviews."
+      ],
+    },
+    {
+      position: 'Software Developer',
       company: 'Synergy Global Network',
-      duration: '(August 2023 - Present)',
+      duration: '(August 2023 - Jul 2025)',
       responsibilities: [
         'Developed frontend using NextJS and Ant Design (antd) and Mapbox.',
         'Developed backend services with NestJS and Postgres for efficient data management.',
@@ -32,7 +40,7 @@ const resumeData = {
   ],
   skills: {
     'Programming Languages': ['TypeScript', 'JavaScript'],
-    'Libraries / Frameworks': ['React', 'NextJS', 'NestJS', 'Mapbox', 'Antd', 'Tanstack Query', 'Vitest', 'Jest', 'Sequelize', 'Socket.IO'],
+    'Libraries / Frameworks': ['React', 'NextJS', 'NestJS', 'Mapbox', 'Antd', 'Tanstack Query', 'Vitest', 'Jest', 'Sequelize', 'Socket.IO', "GraphQL"],
     'Tools / Platforms': ['Git', 'GitLab', 'Docker', 'Keycloak', 'MinIO', 'Swagger', 'VIM'],
     Databases: ['PostgreSQL'],
   },
@@ -63,19 +71,21 @@ export default function ResumePage() {
           <section>
             <Typography>Work Experience</Typography>
             <Separator className='my-4' />
-            {resumeData.workExperience.map((exp, i) => (
-              <Fragment key={exp.company + exp.position + i}>
-                <Typography as='p' variant="body3">{exp.position} | {exp.company}</Typography>
-                <Typography as="p" variant="p1" className='italic'>{exp.duration}</Typography>
-                <ul className="list-disc ml-5">
-                  {exp.responsibilities.map((res, j) => (
-                    <li key={j}>
-                      <Typography as='p' variant="p1">{res}</Typography>
-                    </li>
-                  ))}
-                </ul>
-              </Fragment>
-            ))}
+            <section className='flex flex-col gap-2'>
+              {resumeData.workExperience.map((exp, i) => (
+                <div key={exp.company + exp.position + i}>
+                  <Typography as='p' variant="body3">{exp.position} | {exp.company}</Typography>
+                  <Typography as="p" variant="p1" className='italic'>{exp.duration}</Typography>
+                  <ul className="list-disc ml-5">
+                    {exp.responsibilities.map((res, j) => (
+                      <li key={j}>
+                        <Typography as='p' variant="p1">{res}</Typography>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
           </section>
         </FadeIn>
 
