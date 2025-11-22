@@ -1,23 +1,24 @@
 // core
-import React from 'react'
-import { Metadata } from 'next'
+import React from "react";
+import { Metadata } from "next";
 
 // components
-import { Box } from '@/core/components/layout/box'
-import { Main } from '@/core/components/layout/main'
-import { Separator } from '@/core/components/ui/separator'
-import { WorkOverview, type WorkOverviewProps } from '@/core/components/ui/work-overview'
-import { FadeIn } from '@/core/components/wrapper/fade-in'
-import { Typography } from '@/core/components/ui/typography'
+import { Box } from "@/core/components/layout/box";
+import { Main } from "@/core/components/layout/main";
+import { Separator } from "@/core/components/ui/separator";
+import { WorkOverview, type WorkOverviewProps } from "@/core/components/ui/work-overview";
+import { FadeIn } from "@/core/components/wrapper/fade-in";
+import { Typography } from "@/core/components/ui/typography";
 
 export const metadata: Metadata = {
   title: "work"
-}
+};
 
 const worksData: WorkOverviewProps[] = [
   {
-    title: "ChatIO",
-    description: "A random chat alternative to find friends, connect with people, and chat with strangers.",
+    title: "Whisper Loop",
+    description:
+      "A random chat alternative to find friends, connect with people, and chat with strangers.",
     badges: ["NextJS", "NestJS", "GraphQL", "SocketIO", "Postgres"],
     metadata: [
       {
@@ -28,17 +29,13 @@ const worksData: WorkOverviewProps[] = [
       },
       {
         label: "Live",
-        href: "https://chatio-front.vercel.app"
+        href: "https://whisper-loop.vercel.app/"
       },
       {
-        label: "Github Front",
-        href: "https://github.com/sdsarun/chatio-front"
-      },
-      {
-        label: "Github Back",
-        href: "https://github.com/sdsarun/chatio-back"
-      },
-    ],
+        label: "Github",
+        href: "https://github.com/boonpermyo/whisper-loop"
+      }
+    ]
   },
   {
     title: "No More Random AD",
@@ -66,37 +63,39 @@ const worksData: WorkOverviewProps[] = [
   },
   {
     title: "Coastal Sea Depth Platform",
-    description: "Coastal depth survey data, enabling the display of various map layers, including base maps, satellite and digital elevation models (DEM).",
+    description:
+      "Coastal depth survey data, enabling the display of various map layers, including base maps, satellite and digital elevation models (DEM).",
     imageProps: {
       src: "https://raw.githubusercontent.com/sdsarun/assets/refs/heads/main/screenshots/portfolio/coastal-sea-depth.png",
       width: 900,
       height: 700,
       alt: "Coastal Sea Depth Image"
     },
-    badges: ["Vite", "NestJS", "RabbitMQ", "MinIO", "Postgres"],
+    badges: [],
     metadata: [
       {
         label: "2024"
       },
       {
-        label: "Contribute",
+        label: "Contribute"
       },
       {
         label: "Live",
         href: "https://coastalseadepth.com"
       }
-    ],
+    ]
   },
   {
     title: "Smart Tax",
-    description: "Intelligent tax collection and valuation system facilitate citizens as a one-stop-service for submitting an online petition form, payment check and status tracking.",
-    badges: ["NextJS", "NestJS", "Postgres"],
+    description:
+      "Intelligent tax collection and valuation system facilitate citizens as a one-stop-service for submitting an online petition form, payment check and status tracking.",
+    badges: [],
     metadata: [
       {
-        label: "2023-Present"
+        label: "2023-2025"
       },
       {
-        label: "Contribute",
+        label: "Contribute"
       },
       {
         label: "Landing",
@@ -116,7 +115,7 @@ const worksData: WorkOverviewProps[] = [
     badges: ["Vite", "TailwindCSS"],
     metadata: [
       {
-        label: "2023",
+        label: "2023"
       },
       {
         label: "Live",
@@ -128,27 +127,28 @@ const worksData: WorkOverviewProps[] = [
       }
     ]
   }
-]
+];
 
 export default function WorkPage() {
   return (
     <Main width="full" padding="none">
       <FadeIn>
-        <Box as='section' className='py-[10rem] flex flex-col gap-1'>
-          <Typography as='h1'>Showcasing My Work and Passion Projects</Typography>
-          <Typography as="p" variant='p2' className='text-muted-foreground'>
-            Not every project here is groundbreaking. Some are just me practicing new tricks, testing my limits, or just having fun while learning. But hey, every line of code counts!
+        <Box as="section" className="py-[10rem] flex flex-col gap-1">
+          <Typography as="h1">Showcasing My Work and Passion Projects</Typography>
+          <Typography as="p" variant="p2" className="text-muted-foreground">
+            Not every project here is groundbreaking. Some are just me practicing new tricks, testing my
+            limits, or just having fun while learning. But hey, every line of code counts!
           </Typography>
         </Box>
       </FadeIn>
       <FadeIn>
-        <Box as="section" className='flex flex-col gap-10' padding="none" width="full">
+        <Box as="section" className="flex flex-col gap-10" padding="none" width="full">
           {worksData.map((workProps, idx) => (
             <FadeIn key={workProps.title}>
               <WorkOverview {...workProps} />
               {idx !== worksData.length - 1 && (
-                <Box width="responsive" className='mt-10 sm:hidden'>
-                  <Separator className='' />
+                <Box width="responsive" className="mt-10 sm:hidden">
+                  <Separator />
                 </Box>
               )}
             </FadeIn>
@@ -156,10 +156,10 @@ export default function WorkPage() {
         </Box>
       </FadeIn>
       <FadeIn>
-        <Box className='mt-10'>
+        <Box className="mt-10">
           <Separator />
         </Box>
       </FadeIn>
     </Main>
-  )
+  );
 }
