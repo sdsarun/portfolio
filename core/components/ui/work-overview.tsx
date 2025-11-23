@@ -49,11 +49,11 @@ export function WorkOverview({
               {item.href ? (
                 <Link
                   href={item.href}
-                  className="hover:underline inline-flex items-center gap-1"
+                  className="inline-flex items-center gap-1"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {item.label}
+                  <span className="link-underline-wipe">{item.label}</span>
                   <SquareArrowOutUpRight size={16} />
                 </Link>
               ) : (
