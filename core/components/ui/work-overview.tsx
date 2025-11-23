@@ -37,7 +37,7 @@ export function WorkOverview({
   badges
 }: WorkOverviewProps) {
   return (
-    <section className={cn("flex flex-col gap-16", rootClassName)}>
+    <section className={cn("flex flex-col gap-10", rootClassName)}>
       <Box width="responsive" className="flex flex-col gap-4 sm:flex-row">
         <Box
           width="full"
