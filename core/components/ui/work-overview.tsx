@@ -2,7 +2,7 @@
 import React from "react";
 
 // components
-import Image, { type ImageProps } from "next/image";
+import { Image, type ImageProps } from "@/core/components/ui/image";
 import Link from "next/link";
 import { Box } from "@/core/components/layout/box";
 import { Typography } from "@/core/components/ui/typography";
@@ -19,7 +19,7 @@ export type WorkOverviewMetaItem = {
 
 export type WorkOverviewProps = {
   imageProps?: ImageProps;
-  rootImageProps?: React.ComponentProps<"figure">;
+  rootImageProps?: React.ComponentProps<"div">;
   rootClassName?: string;
   title?: string;
   description?: string;
@@ -81,17 +81,17 @@ export function WorkOverview({
         </Box>
       </Box>
       {imageProps && (
-        <figure
+        <div
           {...rootImageProps}
           className={cn("flex items-center justify-center px-4", rootImageProps?.className)}
         >
           <Image
             {...imageProps}
-            className={cn("rounded-sm shadow-xl", imageProps?.className)}
+            wrapperClassName="shadow-xl"
             src={imageProps.src}
             alt={imageProps.alt}
           />
-        </figure>
+        </div>
       )}
     </section>
   );
