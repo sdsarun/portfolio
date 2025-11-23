@@ -14,19 +14,16 @@ import { Routes } from "@/core/constants/routes";
 import { cn } from "@/core/lib/utils";
 
 export function FooterLinks() {
-  const pathname = usePathname();
+  const activePathname = usePathname();
   return (
     <div className="grid grid-cols-2 gap-4">
       {Object.entries(Routes).map(([name, href]) => (
         <Typography key={name} variant="p1">
           <Link
             href={href}
-            className={cn(
-              "link-underline-wipe",
-              {
-                "after:scale-x-100": pathname === href,
-              }
-            )}
+            className={cn("link-underline-wipe", {
+              "after:scale-x-100": activePathname === href
+            })}
           >
             {name}
           </Link>
