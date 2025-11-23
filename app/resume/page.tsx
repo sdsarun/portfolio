@@ -171,7 +171,7 @@ export default function ResumePage() {
                 href={resumeData.resumeLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline"
+                className="link-underline-wipe"
               >
                 Download PDF
               </a>
