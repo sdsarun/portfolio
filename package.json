@@ -11,11 +11,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "release": "npx standard-version",
-    "release:patch": "npx standard-version --release-as patch",
-    "release:minor": "npx standard-version --release-as minor",
-    "release:major": "npx standard-version --release-as major"
+    "lint": "next lint"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.10",
