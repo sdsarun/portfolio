@@ -1,15 +1,15 @@
 import "./globals.css";
 
 // components
-import { Providers } from "@/core/components/providers/providers";
-import { Header } from "@/core/components/layout/header";
-import { Navbar } from "@/core/components/layout/navbar";
-import { FadeIn } from "@/core/components/animations/fade-in";
-import { FooterNavigate } from "@/core/components/layout/footer-navigate";
-import { WebVitals } from "@/core/components/analytics/web-vitals/web-vitals";
+import { Providers } from "@/shared/providers/providers";
+import { Header } from "@/shared/layout/header";
+import { Navbar } from "@/shared/layout/navbar";
+import { FadeIn } from "@/shared/animations/fade-in";
+import { FooterNavigate } from "@/shared/layout/footer-navigate";
+import { WebVitals } from "@/shared/analytics/web-vitals/web-vitals";
 
 // configs
-import { notoSans, notoSansMono } from "@/core/configs/fonts";
+import { NotoSans, NotoSansMono } from "@/shared/constants/fonts";
 
 // types
 import type { Metadata, Viewport } from "next";
@@ -57,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${notoSans.variable} ${notoSansMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${NotoSans.variable} ${NotoSansMono.variable}`} suppressHydrationWarning>
       <body className={`antialiased sm:subpixel-antialiased`}>
         <Providers>
           <Header className="mt-20">
@@ -66,9 +66,7 @@ export default function RootLayout({
             </FadeIn>
           </Header>
           {children}
-          <FadeIn>
-            <FooterNavigate />
-          </FadeIn>
+          <FooterNavigate />
         </Providers>
         <WebVitals />
       </body>
