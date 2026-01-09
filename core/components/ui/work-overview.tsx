@@ -69,7 +69,7 @@ export function WorkOverview({
           <Typography as="p" variant="p1">
             {description}
           </Typography>
-          {badges && (
+          {Array.isArray(badges) && badges.length > 0 && (
             <div className="flex items-center gap-1 flex-wrap">
               {badges.map((badge, idx) => (
                 <Badge variant="secondary" key={badge + idx} className="text-muted-foreground">

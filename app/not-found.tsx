@@ -10,7 +10,7 @@ import { Typography } from "@/core/components/ui/typography";
 // constants
 import { Routes } from "@/core/constants/routes";
 import { Separator } from "@/core/components/ui/separator";
-import { FadeIn } from "@/core/components/wrapper/fade-in";
+import { FadeIn } from "@/core/components/animations/fade-in";
 
 export const metadata: Metadata = {
   title: "not found"

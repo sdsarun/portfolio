@@ -1,24 +1,31 @@
 // core
-import { Metadata } from "next";
+import { type Metadata } from "next";
 
 // components
 import { Main } from "@/core/components/layout/main";
 import { Typography } from "@/core/components/ui/typography";
-import { FadeIn } from "@/core/components/wrapper/fade-in";
+import { FadeIn } from "@/core/components/animations/fade-in";
 import { Separator } from "@/core/components/ui/separator";
+
+// actions
+import { getProfile } from "@/core/actions/profile/get-profile-action";
+
+export const revalidate = 3600; // in seconds
 
 export const metadata: Metadata = {
   title: "sdsarun | home"
 };
 
-export default function Home() {
+export default async function Home() {
+  const profile = await getProfile();
+  const profileData = profile?.home;
   return (
     <Main width="sm">
       <FadeIn>
         <div className="py-[20rem] flex flex-col gap-1">
-          <Typography as="h1">Sarun Daunghirun</Typography>
+          <Typography as="h1">{profileData?.displayName}</Typography>
           <Typography as="p" variant="p2" className="italic">
-            Software Developer
+            {profileData?.roleName}
           </Typography>
         </div>
       </FadeIn>
@@ -27,16 +34,12 @@ export default function Home() {
       </FadeIn>
       <FadeIn>
         <Typography as="h2" variant="h2" className="mt-10">
-          Who&apos;s Here!
+          {profileData?.bioTitle}
         </Typography>
       </FadeIn>
       <FadeIn>
         <Typography as="p" variant="p1" className="my-10">
-          I&apos;m a fullstack developer with a love for clean UI, minimal design, and smooth UX. I build
-          with Next.js, NestJS, and everything in between. Outside of coding, I’m into cycling, tech, and
-          small side projects. This site is a simple showcase of personal experiments, client work, and
-          things I’ve been tinkering with—some polished, some still baking. Built with passion,
-          curiosity, and way too many late nights. Feel free to explore what I&apos;ve been up to below.
+          {profileData?.bioDescription}
         </Typography>
       </FadeIn>
       <FadeIn>

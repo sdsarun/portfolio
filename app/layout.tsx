@@ -4,7 +4,7 @@ import "./globals.css";
 import { Providers } from "@/core/components/providers/providers";
 import { Header } from "@/core/components/layout/header";
 import { Navbar } from "@/core/components/layout/navbar";
-import { FadeIn } from "@/core/components/wrapper/fade-in";
+import { FadeIn } from "@/core/components/animations/fade-in";
 import { FooterNavigate } from "@/core/components/layout/footer-navigate";
 import { WebVitals } from "@/core/components/analytics/web-vitals/web-vitals";
 
