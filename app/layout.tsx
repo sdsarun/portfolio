@@ -9,7 +9,7 @@ import { FooterNavigate } from "@/core/components/layout/footer-navigate";
 import { WebVitals } from "@/core/components/analytics/web-vitals/web-vitals";
 
 // configs
-import { notoSans, notoSansMono } from "@/core/configs/font";
+import { notoSans, notoSansMono } from "@/core/configs/fonts";
 
 // types
 import type { Metadata, Viewport } from "next";
