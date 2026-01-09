@@ -7,41 +7,20 @@ import Link from "next/link";
 import { Main } from "@/core/components/layout/main";
 import { Separator } from "@/core/components/ui/separator";
 import { Typography } from "@/core/components/ui/typography";
-import { FadeIn } from "@/core/components/wrapper/fade-in";
+import { FadeIn } from "@/core/components/animations/fade-in";
 
-type Contact = {
-  label: string;
-  display: string;
-  type: "email" | "link";
-  href: string;
-};
+// actions
+import { getProfile } from "@/core/actions/profile/get-profile-action";
+
+export const revalidate = 3600; // in seconds
 
 export const metadata: Metadata = {
   title: "contact"
 };
 
-const contacts: Contact[] = [
-  {
-    type: "email",
-    label: "Email",
-    href: "mailto:sdsarun@outlook.com",
-    display: "sdsarun@outlook.com"
-  },
-  {
-    type: "link",
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/sdsarun",
-    display: "linkedin.com/in/sdsarun"
-  },
-  {
-    type: "link",
-    label: "GitHub",
-    href: "https://github.com/sdsarun",
-    display: "github.com/sdsarun"
-  }
-];
-
-export default function ContactPage() {
+export default async function ContactPage() {
+  const profile = await getProfile();
+  const contactsData = profile?.contacts || [];
   return (
     <Main>
       <FadeIn>
@@ -53,7 +32,7 @@ export default function ContactPage() {
           </Typography>
         </section>
         <section className="pb-[20rem] flex flex-col gap-2">
-          {contacts.map((contact, idx) => (
+          {contactsData?.map?.((contact, idx) => (
             <div key={contact.label + idx} className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <Typography variant="p1">{contact.label}</Typography>
@@ -68,7 +47,7 @@ export default function ContactPage() {
                   </Link>
                 </Typography>
               </div>
-              {idx !== contacts.length - 1 && <Separator />}
+              {idx !== contactsData?.length - 1 && <Separator />}
             </div>
           ))}
         </section>

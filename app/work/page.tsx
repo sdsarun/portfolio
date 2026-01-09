@@ -1,135 +1,26 @@
 // core
-import React from "react";
-import { Metadata } from "next";
+import { type Metadata } from "next";
 
 // components
 import { Box } from "@/core/components/layout/box";
 import { Main } from "@/core/components/layout/main";
 import { Separator } from "@/core/components/ui/separator";
-import { WorkOverview, type WorkOverviewProps } from "@/core/components/ui/work-overview";
-import { FadeIn } from "@/core/components/wrapper/fade-in";
+import { WorkOverview } from "@/core/components/ui/work-overview";
+import { FadeIn } from "@/core/components/animations/fade-in";
 import { Typography } from "@/core/components/ui/typography";
+
+// actions
+import { getProfile } from "@/core/actions/profile/get-profile-action";
+
+export const revalidate = 3600; // in seconds
 
 export const metadata: Metadata = {
   title: "work"
 };
 
-const worksData: WorkOverviewProps[] = [
-  {
-    title: "Whisper Loop",
-    description:
-      "A random chat alternative to find friends, connect with people, and chat with strangers.",
-    badges: ["NextJS", "NestJS", "GraphQL", "SocketIO", "Postgres"],
-    metadata: [
-      {
-        label: "2025"
-      },
-      {
-        label: "In Progress"
-      },
-      {
-        label: "Live",
-        href: "https://whisper-loop.vercel.app/"
-      },
-      {
-        label: "Github",
-        href: "https://github.com/boonpermyo/whisper-loop"
-      }
-    ]
-  },
-  {
-    title: "No More Random AD",
-    description: "Generate random data without the annoyance of ads.",
-    imageProps: {
-      src: "https://raw.githubusercontent.com/sdsarun/assets/refs/heads/main/screenshots/portfolio/no-more-random-ad.png",
-      width: 900,
-      height: 700,
-      alt: "No More Random AD Image"
-    },
-    badges: ["NextJS", "Shadcn-UI"],
-    metadata: [
-      {
-        label: "2025"
-      },
-      {
-        label: "Live",
-        href: "https://no-more-random-ad.vercel.app/"
-      },
-      {
-        label: "GitHub",
-        href: "https://github.com/sdsarun/no-more-random-ad"
-      }
-    ]
-  },
-  {
-    title: "Coastal Sea Depth Platform",
-    description:
-      "Coastal depth survey data, enabling the display of various map layers, including base maps, satellite and digital elevation models (DEM).",
-    imageProps: {
-      src: "https://raw.githubusercontent.com/sdsarun/assets/refs/heads/main/screenshots/portfolio/coastal-sea-depth.png",
-      width: 900,
-      height: 700,
-      alt: "Coastal Sea Depth Image"
-    },
-    badges: [],
-    metadata: [
-      {
-        label: "2024"
-      },
-      {
-        label: "Contribute"
-      },
-      {
-        label: "Live",
-        href: "https://coastalseadepth.com"
-      }
-    ]
-  },
-  {
-    title: "Smart Tax",
-    description:
-      "Intelligent tax collection and valuation system facilitate citizens as a one-stop-service for submitting an online petition form, payment check and status tracking.",
-    badges: [],
-    metadata: [
-      {
-        label: "2023-2025"
-      },
-      {
-        label: "Contribute"
-      },
-      {
-        label: "Landing",
-        href: "https://bedrockanalytics.ai/products/smart-municipal-tax-solution"
-      }
-    ]
-  },
-  {
-    title: "xx-portfolio",
-    description: "A personal portfolio showcasing projects, skills, and experience.",
-    imageProps: {
-      src: "https://raw.githubusercontent.com/sdsarun/assets/refs/heads/main/screenshots/portfolio/xx-portfolio.png",
-      width: 900,
-      height: 700,
-      alt: "XX Portfolio Image"
-    },
-    badges: ["Vite", "TailwindCSS"],
-    metadata: [
-      {
-        label: "2023"
-      },
-      {
-        label: "Live",
-        href: "https://xx-portfolio.vercel.app/"
-      },
-      {
-        label: "GitHub",
-        href: "https://github.com/sdsarun/xx-portfolio"
-      }
-    ]
-  }
-];
-
-export default function WorkPage() {
+export default async function WorkPage() {
+  const profile = await getProfile();
+  const worksData = profile?.work || [];
   return (
     <Main width="full" padding="none">
       <FadeIn>
