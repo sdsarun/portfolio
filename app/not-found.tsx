@@ -1,16 +1,15 @@
 // core
-import React from "react";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 // components
 import Link from "next/link";
-import { Main } from "@/core/components/layout/main";
-import { Typography } from "@/core/components/ui/typography";
+import { Main } from "@/shared/layout/main";
+import { Typography } from "@/shared/ui/typography";
+import { FadeIn } from "@/shared/animations/fade-in";
+import { Separator } from "@/shared/ui/separator";
 
 // constants
-import { Routes } from "@/core/constants/routes";
-import { Separator } from "@/core/components/ui/separator";
-import { FadeIn } from "@/core/components/animations/fade-in";
+import { Routes } from "@/shared/constants/routes";
 
 export const metadata: Metadata = {
   title: "not found"
