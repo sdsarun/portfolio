@@ -9,8 +9,7 @@ const serverEnvSchema = z
     NODE_ENV: z.string(),
     SERVICE_NAME: z.string().default("portfolio"),
     PORTFOLIO_BACKEND_URL: z.url(),
-    PORTFOLIO_BACKEND_API_KEY: z.string().min(1),
-    REDIS_URL: z.string().min(1)
+    PORTFOLIO_BACKEND_API_KEY: z.string().min(1)
   })
   .readonly();
 
