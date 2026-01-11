@@ -49,17 +49,13 @@ const EMPTY_PROFILE: GetProfileOutput = {
 export async function getProfile(): Promise<GetProfileOutput> {
   try {
     const response = await portfolioApi("/v1/profile");
-
     const profileData = (await response.json()) as GetProfileResponse;
-
-    const profileOutput: GetProfileOutput = {
+    return {
       home: mapProfileToHome(profileData),
       work: mapProfileToWork(profileData),
       resume: mapProfileToResume(profileData),
       contacts: mapProfileToContacts(profileData)
     };
-
-    return profileOutput;
   } catch (error) {
     console.error("GetProfileError:", error);
     return EMPTY_PROFILE;
