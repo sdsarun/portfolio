@@ -1,9 +1,5 @@
 "use server";
 
-// lib
-import { RedisCache } from "@/infrastructure/cache/cache-client";
-import { CacheKeys } from "@/infrastructure/cache/cache-keys";
-
 // http
 import { portfolioApi } from "@/infrastructure/http/server-http-client";
 
@@ -51,14 +47,7 @@ const EMPTY_PROFILE: GetProfileOutput = {
 };
 
 export async function getProfile(): Promise<GetProfileOutput> {
-  const cacheService = RedisCache.getInstance();
   try {
-    const cacheKey = CacheKeys.profile.all();
-    const cached = await cacheService.get<GetProfileOutput | null>(cacheKey);
-    if (cached) {
-      return cached;
-    }
-
     const response = await portfolioApi("/v1/profile");
 
     const profileData = (await response.json()) as GetProfileResponse;
@@ -69,8 +58,6 @@ export async function getProfile(): Promise<GetProfileOutput> {
       resume: mapProfileToResume(profileData),
       contacts: mapProfileToContacts(profileData)
     };
-
-    await cacheService.set(cacheKey, profileOutput, { ttlSeconds: 3600 });
 
     return profileOutput;
   } catch (error) {
